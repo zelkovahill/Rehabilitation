@@ -14,9 +14,22 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("최고 기록을 표시할 텍스트 컴포넌트를 설정합니다.")]
     private TextMeshProUGUI recordText;
 
+    private PlayerAction _playerAction;
+
     // 내부 변수
     private float _surviveTime; // 생존 시간
     private bool _isGameOver; // 게임 오버 상태
+
+    private void Awake()
+    {
+        _playerAction = FindFirstObjectByType<PlayerAction>();
+        _playerAction.OnDie += EndGame;
+    }
+
+    private void Disable()
+    {
+        _playerAction.OnDie -= EndGame;
+    }
 
     private void Start()
     {

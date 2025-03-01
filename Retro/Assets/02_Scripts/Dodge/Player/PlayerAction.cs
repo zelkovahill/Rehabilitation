@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
@@ -12,11 +13,14 @@ public class PlayerAction : MonoBehaviour
     [SerializeField, Tooltip("회전 속도를 설정합니다.")]
     private float rotationSpeed = 10f;
 
+    public Action OnDie;
+
     // 내부 변수
     private PlayerInput _playerInput;
     private CharacterController _characterController;
     private Vector3 _moveDirection;
     private float _currentSpeed;
+    public bool IsDie { get; private set; }
 
     private void Awake()
     {
@@ -40,10 +44,12 @@ public class PlayerAction : MonoBehaviour
 
     public void Die()
     {
-        this.gameObject.SetActive(false);
+        OnDie?.Invoke();
+        IsDie = true;
+        // this.gameObject.SetActive(false);
 
-        GameManager gameManager = FindFirstObjectByType<GameManager>();
-        gameManager.EndGame();
+        // GameManager gameManager = FindFirstObjectByType<GameManager>();
+        // gameManager.EndGame();
     }
 
 

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
@@ -16,9 +15,12 @@ public class BulletSpawner : MonoBehaviour
     private Transform _target;
     private float _spwnRate;
     private float _timeAfterSpawn;
+    private PlayerAction _playerAction;
 
     private void Start()
     {
+        _playerAction = FindFirstObjectByType<PlayerAction>();
+
         _timeAfterSpawn = 0f;
 
         _spwnRate = Random.Range(minSpawnDelay, maxSpawnDelay);
@@ -30,6 +32,11 @@ public class BulletSpawner : MonoBehaviour
 
     private void Update()
     {
+        if (_playerAction.IsDie)
+        {
+            return;
+        }
+
         _timeAfterSpawn += Time.deltaTime;
 
         if (_timeAfterSpawn >= _spwnRate)

@@ -5,12 +5,14 @@ public abstract class PlayerState
     protected PlayerStateMachine _playerStateMachine;
     protected PlayerInput _playerInput;
     protected PlayerAction _playerAction;
+    protected Animator _animator;
 
     public PlayerState(PlayerStateMachine playerStateMachine)
     {
         _playerStateMachine = playerStateMachine;
         _playerInput = playerStateMachine.GetComponent<PlayerInput>();
         _playerAction = playerStateMachine.GetComponent<PlayerAction>();
+        _animator = playerStateMachine.GetComponent<Animator>();
     }
 
     public virtual void Enter() { }
@@ -24,6 +26,11 @@ public class PlayerIdleState : PlayerState
 
     public override void Update()
     {
+        if (_playerAction.IsDie)
+        {
+            _playerStateMachine.TransitionToState(_playerStateMachine.GetDieState());
+        }
+
         if (_playerInput.move != Vector2.zero)
         {
             _playerStateMachine.TransitionToState(_playerStateMachine.GetMoveState());
@@ -39,6 +46,11 @@ public class PlayerMoveState : PlayerState
     {
         _playerAction.Move();
 
+        if (_playerAction.IsDie)
+        {
+            _playerStateMachine.TransitionToState(_playerStateMachine.GetDieState());
+        }
+
         if (_playerInput.move == Vector2.zero)
         {
             _playerStateMachine.TransitionToState(_playerStateMachine.GetIdleState());
@@ -53,6 +65,6 @@ public class PlayerDieState : PlayerState
 
     public override void Enter()
     {
-        _playerAction.Die();
+        _animator.SetTrigger("Die");
     }
 }
