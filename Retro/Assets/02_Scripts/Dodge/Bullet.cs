@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
     private void ReturnToPool()
     {
-        PoolManager.Instance.ReturnToPool(gameObject, "Bullet");
+        gameObject.SetActive(false);
     }
 
 }

@@ -41,6 +41,9 @@ public class PlayerAction : MonoBehaviour
     public void Die()
     {
         this.gameObject.SetActive(false);
+
+        GameManager gameManager = FindFirstObjectByType<GameManager>();
+        gameManager.EndGame();
     }
 
 

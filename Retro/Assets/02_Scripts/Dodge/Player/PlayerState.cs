@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class PlayerState
 {
-    protected PlayerStatetMachine _playerStateMachine;
+    protected PlayerStateMachine _playerStateMachine;
     protected PlayerInput _playerInput;
     protected PlayerAction _playerAction;
 
-    public PlayerState(PlayerStatetMachine playerStateMachine)
+    public PlayerState(PlayerStateMachine playerStateMachine)
     {
         _playerStateMachine = playerStateMachine;
         _playerInput = playerStateMachine.GetComponent<PlayerInput>();
@@ -20,7 +20,7 @@ public abstract class PlayerState
 
 public class PlayerIdleState : PlayerState
 {
-    public PlayerIdleState(PlayerStatetMachine playerStateMachine) : base(playerStateMachine) { }
+    public PlayerIdleState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) { }
 
     public override void Update()
     {
@@ -33,7 +33,7 @@ public class PlayerIdleState : PlayerState
 
 public class PlayerMoveState : PlayerState
 {
-    public PlayerMoveState(PlayerStatetMachine playerStateMachine) : base(playerStateMachine) { }
+    public PlayerMoveState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) { }
 
     public override void Update()
     {
@@ -49,7 +49,7 @@ public class PlayerMoveState : PlayerState
 
 public class PlayerDieState : PlayerState
 {
-    public PlayerDieState(PlayerStatetMachine playerStateMachine) : base(playerStateMachine) { }
+    public PlayerDieState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) { }
 
     public override void Enter()
     {
